@@ -75,7 +75,11 @@ TIME_CONFINEMENT_FILES = {
 
     # doing cools 
     "R_chamber" : "Production/Parameters/SystemParameters/R_chamber",
-    "L_chamber" : "Production/Parameters/SystemParameters/L_chamber"
+    "L_chamber" : "Production/Parameters/SystemParameters/L_chamber",
+
+
+    # chamber params
+    "pre_dis_p" : "Operation/Discharge/p_chamber_pressure_predischarge"
 
 }
 
