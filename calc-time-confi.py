@@ -16,9 +16,14 @@ MAJOR_RADIUS = 0.4
 MINOR_RADIUS = 0.085
 VOLUME = 2 * np.pi ** 2 * MAJOR_RADIUS * MINOR_RADIUS ** 2
 
+# COMPUTATION OPTIONS
+TIME_MASK_PADDING = 0.05
+DO_PLOTS = True
 # WORKING GAS OPTIONS
 HELIUM_GAS = 0
 HYDROGEN_GAS = 1
+
+
 
 tue_red = "#C71918"
 red_compl = "#18C6C7"
@@ -31,18 +36,57 @@ plt.rcParams.update({
 
 
 
-def calc_timeconf(shot_dir, out_dir="time_results"):
+def calc_timeconf(shot_dir, out_dir="time_results", shot_num=""):
     os.makedirs(out_dir, exist_ok=True)
     shot = ShotData(shot_dir)
 
     # 1. check if plasma succesfull & extract workable range 
     p_valid, p_start, p_end = validate_plasma(shot)
     if not p_valid:
-        gprint("Plasma not valid. Aborting.")
+        gsad("Plasma not valid. Aborting.")
         return
+    
     time = shot["U_loop.csv"].iloc[:,0]
+    s_idx, e_idx = get_plasma_start_and_end_indices(p_start, p_end, time, TIME_MASK_PADDING)
+    gprint(f"Time analysis found start/end indices : {s_idx}/{e_idx} and time values are {round(time[s_idx], 3)}/{round(time[e_idx],3)} ms. These values should match the above (minus padding). \n")
+    time_mask = (np.arange(len(time)) >= s_idx) & (np.arange(len(time)) <= e_idx)
+    time = time[time_mask]
 
-    # 2. 
+    # 2. Defining / Getting variables
+    Ip = (shot["Ip.csv"].iloc[time_mask,1] * 1e3)
+    Uloop = (shot["U_loop.csv"].iloc[time_mask,1])
+
+    # 3. calculating the R
+    Rp = Uloop / Ip 
+    quick_plot(time, Rp, "Rp [ohm]")
+    quick_plot(time, Uloop, "Uloop [V]")
+
+    # 4. Calculating temperatuur
+    Te = 0.9 * Rp ** (-2/3)
+    quick_plot(time, Te, "Temperature [ev]")
+    gprint(f"Average/Mean plasma temperatue {round(np.average(Te),2)}/{round(np.mean(Te),2)} [eV]\n")
+
+    # 5. Calculating density.
+    n_e = calc_density(shot, HELIUM_GAS)
+    gprint(f"Calculated density is {n_e}")
+
+    # 6. Calculating time conf
+    time_conf = constants.elementary_charge * n_e * Te * VOLUME / (3 * Uloop * Ip) *1e6
+    quick_plot(time, time_conf, "Time confinement. [µs]")
+    rounding = 2
+    gprint(f"Time confinement min/max/avg/mean : {round(np.min(time_conf),rounding)}/{round(np.max(time_conf),rounding)}/{round(np.average(time_conf),rounding)}/{round(np.mean(time_conf),rounding)} [µs]")
+
+
+
+def quick_plot(t_ax, val, label):
+    if not DO_PLOTS:
+        return
+    fig, ax = plt.subplots(figsize=(8.6, 5.6), dpi=160)
+    ax.plot(t_ax, val, label=label, color=tue_red, lw=1.1)
+    ax.legend()
+    plt.show()
+    plt.close()
+
 
 
 
@@ -174,16 +218,17 @@ def handle_shot_download():
 
     return num
 
+def handle_should_plot_arg():
+    global DO_PLOTS
+    if len(sys.argv) > 3:
+        DO_PLOTS = sys.argv[3] == "1"
 
 if __name__ == "__main__":
-    # num = 51333 #ieuw
-    # num = 48251 # guce 
-    # num = 41881
-    # num = 44824 # guci
-    # num = 44805 # tres bien
-    # num = 44779
-    # num = 44805
-
     gstart_large()
+    handle_should_plot_arg()
+
     num = handle_shot_download()
-    calc_time(f"shot_{num}")
+    
+    calc_timeconf(f"shot_{num}", num)
+
+    gend()

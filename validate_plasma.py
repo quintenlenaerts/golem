@@ -1,5 +1,5 @@
 from shot_data import ShotData
-
+import numpy as np
 
 def validate_plasma(shot : ShotData):
     """
@@ -17,24 +17,26 @@ def validate_plasma(shot : ShotData):
     return True, t_plasma_start, t_plasma_end
 
 
-def get_plasma_start_and_end_indices(plasma_start,plasma_end, time_arr, accuracy=1e-4):
+def get_plasma_start_and_end_indices(plasma_start,plasma_end, time_arr, padding=0.1):
     """
         Given values shuol be floats or else.
 
-        Time array should be from the shot
-    """
-    start_index, end_index = 0
+        Time array should be from the shot.
 
-    for i in range(len(time_arr)):
-        time_step = time_arr[i]
-        if abs(plasma_start - time_step) <= accuracy:
-            start_index = i
-        
-        if abs(plasma_end - time_step) <= accuracy:
-            end_index = i
+        Padding is in percent, this adds the value of the index ie 4102 -> 4101*1.1 is new start
+        ending gets subtracted so 15000 -> 15000*.9 is new ending index
+    """
+    time_arr = np.asarray(time_arr)
+
+    # find indices of closest values
+    start_index = np.argmin(np.abs(time_arr - plasma_start))
+    end_index   = np.argmin(np.abs(time_arr - plasma_end))
+
+    # apply padding
+    start_index = int(start_index * (1 + padding))
+    end_index   = int(end_index * (1 - padding))
 
     return start_index, end_index
-        
 
 
 

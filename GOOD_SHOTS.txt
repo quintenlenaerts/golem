@@ -1,0 +1,7 @@
+num = 51333 #ieuw
+num = 48251 # guce 
+num = 41881
+num = 44824 # guci
+num = 44805 # tres bien
+num = 44779
+num = 44805
