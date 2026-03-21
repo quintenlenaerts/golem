@@ -107,6 +107,38 @@ def _latex_value_unit(value, unit, precision=3):
             return rf"{value:.{precision}f}\,\mathrm{{{unit}}}"
         return rf"{value:.{precision}f}"
 
+def _write_summary_table(f, ip_stats, uloop_stats, te_stats, tau_stats):
+    rows = [
+        ("Ip [A]", ip_stats),
+        ("Uloop [V]", uloop_stats),
+        ("Te [eV]", te_stats),
+        ("tau_E [us]", tau_stats),
+    ]
+
+    name_w = max(len(r[0]) for r in rows)
+    val_w = 14
+
+    f.write("==== SUMMARY TABLE ====\n")
+    f.write(
+        f"{'quantity':<{name_w}}  "
+        f"{'min':>{val_w}}  "
+        f"{'max':>{val_w}}  "
+        f"{'mean':>{val_w}}  "
+        f"{'avg':>{val_w}}\n"
+    )
+    f.write("-" * (name_w + 2 + 4 * (val_w + 2)) + "\n")
+
+    for name, stats in rows:
+        f.write(
+            f"{name:<{name_w}}  "
+            f"{_fmt(stats['min']):>{val_w}}  "
+            f"{_fmt(stats['max']):>{val_w}}  "
+            f"{_fmt(stats['mean']):>{val_w}}  "
+            f"{_fmt(stats['avg']):>{val_w}}\n"
+        )
+
+    f.write("\n")
+
 
 def write_timeconf_meta(
     out_dir,
@@ -176,6 +208,11 @@ def write_timeconf_meta(
         f.write(f"density_m^-3: {_fmt(float(n_e))}\n")
         f.write("\n")
 
+        _write_summary_table(f, ip_stats, uloop_stats, te_stats, tau_stats)
+
+        f.write("-- time [ms] --\n")
+        f.write("\n")
+
         f.write("-- time [ms] --\n")
         f.write(f"time_min_ms: {_fmt(time_stats['min'])}\n")
         f.write(f"time_max_ms: {_fmt(time_stats['max'])}\n")
@@ -241,5 +278,52 @@ def write_timeconf_meta(
             + rf"$\tau_E = {_latex_value_unit(tau_stats['mean'], mu_s)}$"
             + "\n"
         )
+
+        f.write("\n")
+        f.write("latex_table:\n")
+
+        f.write("\\begin{table}[h]\n")
+        f.write("\\centering\n")
+        f.write("\\begin{tabular}{lcccc}\n")
+        f.write("\\hline\n")
+        f.write("Quantity & Min & Max & Mean & Avg \\\\\n")
+        f.write("\\hline\n")
+
+        f.write(
+            f"$I_p$ [A] & "
+            f"{_fmt(ip_stats['min'])} & "
+            f"{_fmt(ip_stats['max'])} & "
+            f"{_fmt(ip_stats['mean'])} & "
+            f"{_fmt(ip_stats['avg'])} \\\\\n"
+        )
+
+        f.write(
+            f"$U_{{loop}}$ [V] & "
+            f"{_fmt(uloop_stats['min'])} & "
+            f"{_fmt(uloop_stats['max'])} & "
+            f"{_fmt(uloop_stats['mean'])} & "
+            f"{_fmt(uloop_stats['avg'])} \\\\\n"
+        )
+
+        f.write(
+            f"$T_e$ [eV] & "
+            f"{_fmt(te_stats['min'])} & "
+            f"{_fmt(te_stats['max'])} & "
+            f"{_fmt(te_stats['mean'])} & "
+            f"{_fmt(te_stats['avg'])} \\\\\n"
+        )
+
+        f.write(
+            f"$\\tau_E$ [$\\mu$s] & "
+            f"{_fmt(tau_stats['min'])} & "
+            f"{_fmt(tau_stats['max'])} & "
+            f"{_fmt(tau_stats['mean'])} & "
+            f"{_fmt(tau_stats['avg'])} \\\\\n"
+        )
+
+        f.write("\\hline\n")
+        f.write("\\end{tabular}\n")
+        f.write("\\caption{Summary of plasma parameters}\n")
+        f.write("\\end{table}\n")
 
     return out_path

@@ -65,12 +65,12 @@ def calc_timeconf(shot_dir, out_dir="time_results"):
     gprint(f"Average/Mean plasma temperatue {round(np.average(Te),2)}/{round(np.mean(Te),2)} [eV]\n")
 
     # 5. Calculating density.
-    n_e = calc_density(shot, HELIUM_GAS)
+    n_e = calc_density(shot, HYDROGEN_GAS)
     gprint(f"Calculated density is {n_e}")
 
     # 6. Calculating time conf
     time_conf = constants.elementary_charge * n_e * Te * VOLUME / (3 * Uloop * Ip) *1e6
-    quick_plot(DO_PLOTS,time, time_conf, "Time confinement. [µs]")
+    quick_plot(DO_PLOTS,time, time_conf, "Energy time confinment", ylabel="tau [µs]", out_path=f"{out_dir}/tau.png")
     rounding = 2
     gprint(f"Time confinement min/max/avg/mean : {round(np.min(time_conf),rounding)}/{round(np.max(time_conf),rounding)}/{round(np.average(time_conf),rounding)}/{round(np.mean(time_conf),rounding)} [µs]")
 
