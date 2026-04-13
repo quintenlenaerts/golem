@@ -9,8 +9,8 @@ def validate_plasma(shot : ShotData):
     if (shot["b_plasma"] != 1):
         return False
 
-    t_plasma_start = shot["t_plasma_start"]
-    t_plasma_end = shot["t_plasma_end"]
+    t_plasma_start = shot["t_plasma_qs_start"]
+    t_plasma_end = shot["t_plasma_qs_end"]
     plasma_lifetime = shot["t_plasma_duration"]
     print(f"[^-^] plasma lifetime of {plasma_lifetime:.1f} ms, from {t_plasma_start:.1f} ms to {t_plasma_end:.1f} ms")
 
@@ -33,8 +33,8 @@ def get_plasma_start_and_end_indices(plasma_start,plasma_end, time_arr, padding=
     end_index   = np.argmin(np.abs(time_arr - plasma_end))
 
     # apply padding
-    start_index = int(start_index * (1 + padding))
-    end_index   = int(end_index * (1 - padding))
+    # start_index = int(start_index * (1 + padding))
+    end_index   = int(end_index - (end_index - start_index) * (padding))
 
     return start_index, end_index
 

@@ -10,11 +10,11 @@ do_plots: True
 
 ==== DETECTED PLASMA WINDOW ====
 valid_plasma: True
-start_index: 5341
-end_index: 20868
-start_time_ms: 4.342412
-end_time_ms: 19.869412
-window_duration_ms: 15.527000
+start_index: 17651
+end_index: 22647
+start_time_ms: 16.652412
+end_time_ms: 21.648412
+window_duration_ms: 4.996000
 
 ==== CONSTANTS ====
 major_radius_m: 0.400000
@@ -27,61 +27,61 @@ density_m^-3: 5.430611e+18
 ==== SUMMARY TABLE ====
 quantity               min             max            mean             avg
 ----------------------------------------------------------------------------
-Ip [A]          233.090533    1.250690e+04     7018.330120     7018.330120
-Uloop [V]         5.214844       10.424219        6.246057        6.246057
-Te [eV]           7.143262      156.358963       96.125877       96.125877
-tau_E [us]       39.459920       78.756317       55.791575       55.791575
+Ip [A]        1.056587e+04    1.317106e+04    1.203684e+04    1.203684e+04
+Uloop [V]         5.142969        8.278125        6.026535        6.026535
+Te [eV]         120.045468      164.445950      143.041156      143.041156
+tau_E [us]       26.039131       57.944670       45.669660       45.669660
 
 -- time [ms] --
 
 -- time [ms] --
-time_min_ms: 4.342412
-time_max_ms: 19.869412
-time_avg_ms: 12.105912
-time_mean_ms: 12.105912
-time_std_ms: 4.482547
+time_min_ms: 16.652412
+time_max_ms: 21.648412
+time_avg_ms: 19.150412
+time_mean_ms: 19.150412
+time_std_ms: 1.442510
 
 -- Ip [A] --
-Ip_min_A: 233.090533
-Ip_max_A: 1.250690e+04
-Ip_avg_A: 7018.330120
-Ip_mean_A: 7018.330120
-Ip_std_A: 3541.056336
+Ip_min_A: 1.056587e+04
+Ip_max_A: 1.317106e+04
+Ip_avg_A: 1.203684e+04
+Ip_mean_A: 1.203684e+04
+Ip_std_A: 776.066422
 
 -- Uloop [V] --
-Uloop_min_V: 5.214844
-Uloop_max_V: 10.424219
-Uloop_avg_V: 6.246057
-Uloop_mean_V: 6.246057
-Uloop_std_V: 0.818687
+Uloop_min_V: 5.142969
+Uloop_max_V: 8.278125
+Uloop_avg_V: 6.026535
+Uloop_mean_V: 6.026535
+Uloop_std_V: 0.466798
 
 -- Rp [ohm] --
-Rp_min_ohm: 4.366964e-04
-Rp_max_ohm: 0.044722
-Rp_avg_ohm: 0.002049
-Rp_mean_ohm: 0.002049
-Rp_std_ohm: 0.004265
+Rp_min_ohm: 4.048825e-04
+Rp_max_ohm: 6.491501e-04
+Rp_avg_ohm: 5.021869e-04
+Rp_mean_ohm: 5.021869e-04
+Rp_std_ohm: 4.362760e-05
 
 -- Te [eV] --
-Te_min_eV: 7.143262
-Te_max_eV: 156.358963
-Te_avg_eV: 96.125877
-Te_mean_eV: 96.125877
-Te_std_eV: 38.264785
+Te_min_eV: 120.045468
+Te_max_eV: 164.445950
+Te_avg_eV: 143.041156
+Te_mean_eV: 143.041156
+Te_std_eV: 8.186626
 
 -- tau_E [us] --
-tauE_min_us: 39.459920
-tauE_max_us: 78.756317
-tauE_avg_us: 55.791575
-tauE_mean_us: 55.791575
-tauE_std_us: 8.192581
+tauE_min_us: 26.039131
+tauE_max_us: 57.944670
+tauE_avg_us: 45.669660
+tauE_mean_us: 45.669660
+tauE_std_us: 5.506568
 
 -- triple product -- 
-triple_product_keV_s_m^-3: 2.912444e+13
+triple_product_keV_s_m^-3: 3.547623e+13
 ==== LATEX ====
 density: $n_e = 5.431 \times 10^{18}\,\mathrm{m^{-3}}$
-temperature: $T_e = 96.126\,\mathrm{eV}$
-time_confinement: $\tau_E = 55.792\,\mathrm{\mu s}$
+temperature: $T_e = 143.041\,\mathrm{eV}$
+time_confinement: $\tau_E = 45.670\,\mathrm{\mu s}$
 
 latex_table:
 \begin{table}[h]
@@ -90,10 +90,10 @@ latex_table:
 \hline
 Quantity & Min & Max & Mean & Avg \\
 \hline
-$I_p$ [A] & 233.090533 & 1.250690e+04 & 7018.330120 & 7018.330120 \\
-$U_{loop}$ [V] & 5.214844 & 10.424219 & 6.246057 & 6.246057 \\
-$T_e$ [eV] & 7.143262 & 156.358963 & 96.125877 & 96.125877 \\
-$\tau_E$ [$\mu$s] & 39.459920 & 78.756317 & 55.791575 & 55.791575 \\
+$I_p$ [A] & 1.056587e+04 & 1.317106e+04 & 1.203684e+04 & 1.203684e+04 \\
+$U_{loop}$ [V] & 5.142969 & 8.278125 & 6.026535 & 6.026535 \\
+$T_e$ [eV] & 120.045468 & 164.445950 & 143.041156 & 143.041156 \\
+$\tau_E$ [$\mu$s] & 26.039131 & 57.944670 & 45.669660 & 45.669660 \\
 \hline
 \end{tabular}
 \caption{Summary of plasma parameters}

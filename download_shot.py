@@ -71,6 +71,8 @@ TIME_CONFINEMENT_FILES = {
     "b_plasma": "Diagnostics/PlasmaDetection/Results/b_plasma",
     "t_plasma_start": "Diagnostics/PlasmaDetection/Results/t_plasma_start",
     "t_plasma_end": "Diagnostics/PlasmaDetection/Results/t_plasma_end",
+    "t_plasma_qs_start": "Diagnostics/PlasmaDetection/Results/t_plasma_qs_start",
+    "t_plasma_qs_end": "Diagnostics/PlasmaDetection/Results/t_plasma_qs_end",
     "t_plasma_duration": "Diagnostics/PlasmaDetection/Results/t_plasma_duration",
 
     # "U_loop_2.csv" : "DASs/TektrMSO56Standard/loop_voltage.csv",
@@ -94,6 +96,8 @@ PLASMA_CURRENT_2_FILES = {
     "b_plasma": "Diagnostics/PlasmaDetection/Results/b_plasma",
     "t_plasma_start": "Diagnostics/PlasmaDetection/Results/t_plasma_start",
     "t_plasma_end": "Diagnostics/PlasmaDetection/Results/t_plasma_end",
+    "t_plasma_qs_start": "Diagnostics/PlasmaDetection/Results/t_plasma_qs_start",
+    "t_plasma_qs_end": "Diagnostics/PlasmaDetection/Results/t_plasma_qs_end",
     "t_plasma_duration": "Diagnostics/PlasmaDetection/Results/t_plasma_duration",
 
     "t_Bt": "Production/Parameters/TBt",

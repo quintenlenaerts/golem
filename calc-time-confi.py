@@ -90,16 +90,14 @@ def calc_timeconf(shot_dir, out_dir="time_results"):
     # P = Ip**2 * Rp
     # time_conf = constants.elementary_charge * n_e * Te * VOLUME / (3 * P) * 1e6
     time_conf = constants.elementary_charge * n_e * Te * VOLUME / (3 * Uloop * Ip) *1e6
-    quick_plot(DO_PLOTS,time, time_conf, "Energy time confinment", ylabel="tau [µs]", out_path=f"{out_dir}/tau.png")
+    quick_plot(DO_PLOTS,time, time_conf, "Energy time confinement", ylabel="tau [µs]", out_path=f"{out_dir}/tau.png")
     rounding = 2
     gprint(f"Time confinement min/max/avg/mean : {round(np.min(time_conf),rounding)}/{round(np.max(time_conf),rounding)}/{round(np.average(time_conf),rounding)}/{round(np.mean(time_conf),rounding)} [µs]")
 
 
     triple = n_e * Te * time_conf * 1e-9
-    quick_plot(DO_PLOTS,time, time_conf, "Tirple", ylabel="? [µs]", out_path=f"{out_dir}/triple.png")
-
+    quick_plot(DO_PLOTS,time, triple, "Triple", ylabel=" Triple product [eV s m^-3]", out_path=f"{out_dir}/triple.png")
     # print(f"tripple porducucut : : ::  {}")
-
     # exporting data
     write_timeconf_meta(
         out_dir=out_dir,
